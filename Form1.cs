@@ -15,91 +15,125 @@ namespace Sliding_puzzle
     public partial class Form1 : Form
     {
         public Label[,] Labels { get; set; }
+        public Label[] AllLabels { get; set; }
         public int Moves { get; set; } = 0;
+        public static string Difficulty { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            SetForm();          
-            SetIcons();
-            DefineArray();
+
+            Difficulty = "hard";
+
+            SetForm(Difficulty);
+            SetIcons(Difficulty);
+            DefineArray(Difficulty);
             ShuffleArray(Labels);
-            RenderNumbers();
+            RenderNumbers(Difficulty);
         }
 
-        //private void SelectDifficulty(int rows, int cols)
-        //{
-        //    Label[] AllLabels = new Label[]{
-        //        new Label(){ Name = "lblOne"},
-        //        new Label(){ Name = "lblTwo"},
-        //        new Label(){ Name = "lblThree"},
-        //        new Label(){ Name = "lblFour"},
-        //        new Label(){ Name = "lblFive"},
-        //        new Label(){ Name = "lblSix"},
-        //        new Label(){ Name = "lblSeven"},
-        //        new Label(){ Name = "lblEight"},
-        //        new Label(){ Name = "lblNine"},
-        //        new Label(){ Name = "lblTen"},
-        //        new Label(){ Name = "lblEleven"},
-        //        new Label(){ Name = "lblTwelve"},
-        //        new Label(){ Name = "lblThirteen"},
-        //        new Label(){ Name = "lblFourteen"},
-        //        new Label(){ Name = "lblFifteen"},
-        //        new Label(){ Name = "lblEmpty"},
-        //    };
-
-        //    int count = 0;
-
-        //    if(rows == 4 && cols == 4)
-        //    {
-        //        for (int i = 0; i < 4; i++)
-        //        {
-        //            for(int j = 0; j < 4; j++)
-        //            {
-        //                Labels[i,j] = AllLabels[count];
-        //                count++;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //Set the form inner size and title
-        private void SetForm()
+        //Set the form inner size, title and background
+        private void SetForm(string difficulty)
         {
-            this.ClientSize = new Size(600, 600);
-            this.Text = "Sliding Puzzle 4x4 - Fabio Weck";
-            CenterToScreen();
+            
+            Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
+            Image resizedImage = new Bitmap(backgroundImage, 406, 406);
+
+            if (difficulty == "easy")
+            {
+                this.ClientSize = new Size(600, 600);
+                this.BackgroundImage = resizedImage;
+                this.Text = "Sliding Puzzle 4x4 - Fabio Weck";
+                lblMoves.Location = new Point(257, 18);
+                CenterToScreen();
+            }
+
+            else if (difficulty == "medium")
+            {
+                this.ClientSize = new Size(700, 700);
+                resizedImage = new Bitmap(backgroundImage, 506, 506);
+                this.BackgroundImage = resizedImage;
+                this.Text = "Sliding Puzzle 5x5 - Fabio Weck";
+                lblMoves.Location = new Point(307, 18);
+                CenterToScreen();
+            }
+
+            else if (difficulty == "hard")
+            {
+                this.ClientSize = new Size(800, 800);
+                resizedImage = new Bitmap(backgroundImage, 606, 606);
+                this.BackgroundImage = resizedImage;
+                this.Text = "Sliding Puzzle 6x6 - Fabio Weck";
+                lblMoves.Location = new Point(357, 18);
+                CenterToScreen();
+            }
+
         }
 
         //Sets the icons for shuffle and sort buttons
-        private void SetIcons()
+        private void SetIcons(string difficulty)
         {
+            int boardAddition = 0;
+
+            if (difficulty == "medium")
+            {
+                boardAddition += 100;
+            }
+            else if (difficulty == "hard")
+            {
+                boardAddition += 200;
+            }
+
             Image shuffleIcon = Properties.Resources.shuffleIcon;   //Uses shuffle icon image
             Image resizedIcon = new Bitmap(shuffleIcon, 40, 40);    //Set icon size (width, height)
             btnShuffle.Image = resizedIcon;                         //Assign icon to the button
-            btnShuffle.Location = new Point(125, 525);                  
+            btnShuffle.Location = new Point(125, 525 + boardAddition);
             ToolTip shuffleTooltip = new ToolTip();                 //Adds tooltip when te user hovers the pointer over the button
             shuffleTooltip.SetToolTip(btnShuffle, "Shuffle all tiles");
 
             Image sortIcon = Properties.Resources.sortIcon;
             resizedIcon = new Bitmap(sortIcon, 40, 40);
             btnSort.Image = resizedIcon;
-            btnSort.Location = new Point(425, 525);
+            btnSort.Location = new Point(425 + boardAddition, 525 + boardAddition);
             ToolTip sortTooltip = new ToolTip();
             sortTooltip.SetToolTip(btnSort, "Sort all tiles");
         }
 
+        //Method to handle shuffle button
+        private void btnShuffle_Click(object sender, EventArgs e)
+        {
+            Moves = 0;                           //Resets number of moves
+            lblMoves.Text = $"Moves: {Moves}";
+            ShuffleArray(Labels);                //Shuffles the array
+            RenderNumbers(Difficulty);                     //Renders tiles on the screen
+        }
+
+        //Method to handle the sort button
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            Moves = 0;                           //Resets number of moves
+            lblMoves.Text = $"Moves: {Moves}";
+            DefineArray(Difficulty, "reset");
+            RenderNumbers(Difficulty);    //Renders the tile on the screen
+        }
+
         //Method to render the numbers on the screen
-        private void RenderNumbers()
+        private void RenderNumbers(string difficulty)
         {
             int locationX = 100; //Sets the initial position on the screen
             int locationY = 100;
-            int counter = 0;     //Counts the number of iterations in order to
+            int counter = 0;
+            int cols = 0;         //Counts the number of iterations in order to
                                  //add vertical space after 4 buttons placed in a row
+
+            if(difficulty == "easy") cols = 4;
+            else if (difficulty == "medium") cols = 5;
+            else if (difficulty == "hard") cols = 6;
+
 
             foreach (Label label in Labels)
             {
-                if (counter == 4)
+                if (counter == cols)
                 {
                     locationY += 100; //Adds size to the Y axis
                     locationX = 100;  //Resets X axis to first position
@@ -118,31 +152,128 @@ namespace Sliding_puzzle
                 }
 
                 label.Size = new Size(100, 100);
+                label.Font = new Font("Segoe UI", 25);
+                label.ForeColor = Color.Black;
                 label.TextAlign = ContentAlignment.MiddleCenter;
                 label.Location = new Point(locationX, locationY);
+                label.BringToFront();
 
                 locationX += 100; //Adds size to the X axis
                 counter++;
             }
         }
 
-        private void DefineArray()
+        private void DefineArray(string difficulty, string reset = "no")
         {
-            //Defines the array of labels with their names 
-            Labels = new Label[,]
+            AllLabels = new Label[]
             {
-
-                { lblOne, lblTwo, lblThree, lblFour },
-                { lblFive, lblSix, lblSeven, lblEight },
-                { lblNine, lblTen, lblEleven, lblTwelve },
-                { lblThirteen, lblFourteen, lblFifteen, lblEmpty }
-
+                lblOne, lblTwo, lblThree, lblFour, lblFive, lblSix,
+                lblSeven, lblEight, lblNine, lblTen, lblEleven, lblTwelve,
+                lblThirteen, lblFourteen, lblFifteen, lblSixteen, lblSeventeen, lblEighteen,
+                lblNineteen, lblTwenty, lblTwentyOne, lblTwentyTwo, lblTwentyThree, lblTwentyFour,
+                lblTwentyFive, lblTwentySix, lblTwentySeven, lblTwentyEight, lblTwentyNine, lblThirty,
+                lblThirtyOne, lblThirtyTwo, lblThirtyThree, lblThirtyFour, lblThirtyFive, lblEmpty
             };
 
-            //Assigns each label to the LabelClick method
-            foreach (Label label in Labels)
+            //Defines the array of labels with their names 
+            if (difficulty == "easy")
             {
-                label.Click += LabelClicked;
+                int counter = 0;
+
+                Labels = new Label[4,4];
+
+                for(int i = 0; i < 4; i++)
+                {
+                    for(int j = 0; j < 4; j++)
+                    {
+                        if (i == 3 && j == 3)
+                        {
+                            Labels[i, j] = AllLabels[35];
+
+                            //Assigns each label to the LabelClick method
+                            if (reset == "no") 
+                            {
+                                foreach (Label label in Labels)
+                                {
+                                    label.Click += LabelClicked;
+                                }
+
+                                return;
+                            }
+                            else    //If it is a reset, just returns without reassigning the method
+                            {
+                                return;
+                            }
+                            
+                        }
+                        Labels[i, j] = AllLabels[counter];
+                        counter++;
+                    }
+                }
+            }
+
+            else if (difficulty == "medium")
+            {
+                int counter = 0;
+
+                Labels = new Label[5, 5];
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (i == 4 && j == 4)
+                        {
+                            Labels[i, j] = AllLabels[35];
+
+                            //Assigns each label to the LabelClick method
+                            if (reset == "no")
+                            {
+                                foreach (Label label in Labels)
+                                {
+                                    label.Click += LabelClicked;
+                                }
+                                return;
+                            }
+                            else    //If it is a reset, just returns without reassigning the method
+                            {
+                                return;
+                            }
+                        }
+                        Labels[i, j] = AllLabels[counter];
+                        counter++;
+                    }
+                }
+            }
+
+            else if (difficulty == "hard")
+            {
+                int counter = 0;
+
+                Labels = new Label[6, 6];
+
+                for (int i = 0; i < 6; i++)
+                {
+                    for (int j = 0; j < 6; j++)
+                    {
+                        Labels[i, j] = AllLabels[counter];
+                        counter++;
+                    }
+                }
+
+                if(reset == "no")
+                {
+                    foreach (Label label in Labels)
+                    {
+                        label.Click += LabelClicked;
+                    }
+
+                    return;
+                }
+                else
+                {
+                    return;
+                }
             }
         }
 
@@ -180,7 +311,7 @@ namespace Sliding_puzzle
          * Each case checks the position of the empty tile based on the current/clicked tile. 
          * Having the position defined, the function inside the scope performs a swap between the tile and the empty tile.
          */
-        
+
         private void LeftUpperCorner(int i, int j, Label currentLabel)
         {
             if (lblEmpty == Labels[i, j + 1])
@@ -340,7 +471,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile to the left
             Moves += 1;                         //Count one move
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers();                    //Renders the array again
+            RenderNumbers(Difficulty);                    //Renders the array again
             CheckOrder();                       //Checks win or not
         }
 
@@ -350,7 +481,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile to the right
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers();
+            RenderNumbers(Difficulty);
             CheckOrder();
         }
 
@@ -360,7 +491,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile up
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers();
+            RenderNumbers(Difficulty);
             CheckOrder();
         }
 
@@ -371,7 +502,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers();
+            RenderNumbers(Difficulty);
             CheckOrder();
         }
 
@@ -399,7 +530,7 @@ namespace Sliding_puzzle
                             return;
                         }
 
-                        else if (i == 0 && j > 0 && j < cols - 1 ) //Position [0],[1...2] - Tiles on the middle of the top edge
+                        else if (i == 0 && j > 0 && j < cols - 1) //Position [0],[1...2] - Tiles on the middle of the top edge
                         {
                             TopMiddle(i, j, currentLabel);
                             return;
@@ -433,7 +564,7 @@ namespace Sliding_puzzle
                             BottomMiddle(i, j, currentLabel);
                             return;
                         }
-                        else if (i == rows - 1  && j == cols - 1) //Position [3],[3] - The last tile on the bottom-right corner
+                        else if (i == rows - 1 && j == cols - 1) //Position [3],[3] - The last tile on the bottom-right corner
                         {
                             BottomRightCorner(i, j, currentLabel);
                             return;
@@ -448,31 +579,35 @@ namespace Sliding_puzzle
             }
         }
 
-        /*This method captures each text of the labels and counts them.
+        /*
+          This method captures each text of the labels and counts them.
           If it is possible to count 15 times in a row, the player won because tiles are ordered.
           After winning, the player can choose between playing again or exit the game.
-         */
+        */
         private void CheckOrder()
         {
             int counter = 1;
 
-            for (int i = 0; i < 4; i++)
+            int rows = Labels.GetUpperBound(0) + 1; //Gets the number os rows and columns
+            int cols = Labels.GetUpperBound(1) + 1;
+
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < cols; j++)
                 {
                     if (Labels[i, j].Text == counter.ToString())       //Checks labels text
                     {
-                        if (counter == 15 && Labels[3, 3] == lblEmpty) //Checks if it was possible to count 15 times
+                        if (counter == Labels.Length - 1 && Labels[rows - 1, cols - 1] == lblEmpty) //Checks if it was possible to count 15 times
                                                                        //And if the empty tile is on the last position on the board
                         {
                             DialogResult = MessageBox.Show($"You completed the game after {Moves} moves!\nWould you like to play again?", "Congrats!", MessageBoxButtons.YesNo);
-                            
+
                             if (DialogResult == DialogResult.Yes)   //If the user wants to play again
                             {
                                 Moves = 0;                          //Resets the number of moves
-                                lblMoves.Text = $"Moves: {Moves}"; 
+                                lblMoves.Text = $"Moves: {Moves}";
                                 ShuffleArray(Labels);               //Shuffle the array again
-                                RenderNumbers();                    //Renders the shuffled array on the screen
+                                RenderNumbers(Difficulty);                    //Renders the shuffled array on the screen
                             }
                             else //If the user chose to not play again
                             {
@@ -484,32 +619,6 @@ namespace Sliding_puzzle
                     }
                 }
             }
-        }
-
-        //Method to handle shuffle button
-        private void btnShuffle_Click(object sender, EventArgs e)
-        {
-            Moves = 0;                           //Resets number of moves
-            lblMoves.Text = $"Moves: {Moves}";
-            ShuffleArray(Labels);                //Shuffles the array
-            RenderNumbers();                     //Renders tiles on the screen
-        }
-
-        //Method to handle the sort button
-        private void btnSort_Click(object sender, EventArgs e)
-        {
-            Moves = 0;                           //Resets number of moves
-            lblMoves.Text = $"Moves: {Moves}";
-            Labels = new Label[4, 4]{            //Redefine the array with elements in correct order
-
-                { lblOne, lblTwo, lblThree, lblFour },
-                { lblFive, lblSix, lblSeven, lblEight },
-                { lblNine, lblTen, lblEleven, lblTwelve },
-                { lblThirteen, lblFourteen, lblFifteen, lblEmpty }
-
-            };
-
-            RenderNumbers();    //Renders the tile on the screen
         }
     }
 }
