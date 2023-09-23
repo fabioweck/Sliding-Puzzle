@@ -20,18 +20,65 @@ namespace Sliding_puzzle
         public Form1()
         {
             InitializeComponent();
+            SetForm();          
+            SetIcons();
+            DefineArray();
+            ShuffleArray(Labels);
+            RenderNumbers();
+        }
 
-            //Set the form inner size and title
+        //private void SelectDifficulty(int rows, int cols)
+        //{
+        //    Label[] AllLabels = new Label[]{
+        //        new Label(){ Name = "lblOne"},
+        //        new Label(){ Name = "lblTwo"},
+        //        new Label(){ Name = "lblThree"},
+        //        new Label(){ Name = "lblFour"},
+        //        new Label(){ Name = "lblFive"},
+        //        new Label(){ Name = "lblSix"},
+        //        new Label(){ Name = "lblSeven"},
+        //        new Label(){ Name = "lblEight"},
+        //        new Label(){ Name = "lblNine"},
+        //        new Label(){ Name = "lblTen"},
+        //        new Label(){ Name = "lblEleven"},
+        //        new Label(){ Name = "lblTwelve"},
+        //        new Label(){ Name = "lblThirteen"},
+        //        new Label(){ Name = "lblFourteen"},
+        //        new Label(){ Name = "lblFifteen"},
+        //        new Label(){ Name = "lblEmpty"},
+        //    };
+
+        //    int count = 0;
+
+        //    if(rows == 4 && cols == 4)
+        //    {
+        //        for (int i = 0; i < 4; i++)
+        //        {
+        //            for(int j = 0; j < 4; j++)
+        //            {
+        //                Labels[i,j] = AllLabels[count];
+        //                count++;
+        //            }
+        //        }
+        //    }
+        //}
+
+        //Set the form inner size and title
+        private void SetForm()
+        {
             this.ClientSize = new Size(600, 600);
             this.Text = "Sliding Puzzle 4x4 - Fabio Weck";
             CenterToScreen();
+        }
 
-            //Sets the icon for shuffle and sort buttons
-            Image shuffleIcon = Properties.Resources.shuffleIcon;
-            Image resizedIcon = new Bitmap(shuffleIcon, 40, 40);
-            btnShuffle.Image = resizedIcon;
-            btnShuffle.Location = new Point(125, 525);
-            ToolTip shuffleTooltip = new ToolTip();
+        //Sets the icons for shuffle and sort buttons
+        private void SetIcons()
+        {
+            Image shuffleIcon = Properties.Resources.shuffleIcon;   //Uses shuffle icon image
+            Image resizedIcon = new Bitmap(shuffleIcon, 40, 40);    //Set icon size (width, height)
+            btnShuffle.Image = resizedIcon;                         //Assign icon to the button
+            btnShuffle.Location = new Point(125, 525);                  
+            ToolTip shuffleTooltip = new ToolTip();                 //Adds tooltip when te user hovers the pointer over the button
             shuffleTooltip.SetToolTip(btnShuffle, "Shuffle all tiles");
 
             Image sortIcon = Properties.Resources.sortIcon;
@@ -40,30 +87,6 @@ namespace Sliding_puzzle
             btnSort.Location = new Point(425, 525);
             ToolTip sortTooltip = new ToolTip();
             sortTooltip.SetToolTip(btnSort, "Sort all tiles");
-
-
-            //Defines the array of labels with their names 
-            Labels = new Label[4, 4]{
-
-                { lblOne, lblTwo, lblThree, lblFour },
-                { lblFive, lblSix, lblSeven, lblEight },
-                { lblNine, lblTen, lblEleven, lblTwelve },
-                { lblThirteen, lblFourteen, lblFifteen, lblEmpty }
-
-            };
-
-            //Assigns each label to the LabelClick method
-            foreach (Label label in Labels)
-            {
-                label.Click += LabelClicked;
-            }
-
-            //Ramdonly shuffle the array to display numbers out of order
-            ShuffleArray(Labels);
-
-            //Renders the numbers on the screen based on their position inside the array
-            RenderNumbers();
-
         }
 
         //Method to render the numbers on the screen
@@ -100,6 +123,26 @@ namespace Sliding_puzzle
 
                 locationX += 100; //Adds size to the X axis
                 counter++;
+            }
+        }
+
+        private void DefineArray()
+        {
+            //Defines the array of labels with their names 
+            Labels = new Label[,]
+            {
+
+                { lblOne, lblTwo, lblThree, lblFour },
+                { lblFive, lblSix, lblSeven, lblEight },
+                { lblNine, lblTen, lblEleven, lblTwelve },
+                { lblThirteen, lblFourteen, lblFifteen, lblEmpty }
+
+            };
+
+            //Assigns each label to the LabelClick method
+            foreach (Label label in Labels)
+            {
+                label.Click += LabelClicked;
             }
         }
 
