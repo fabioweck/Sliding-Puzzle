@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             lblOne = new Label();
             lblFour = new Label();
             lblTwo = new Label();
@@ -273,7 +274,7 @@
             // 
             lblMoves.BackColor = Color.Transparent;
             lblMoves.Font = new Font("Tw Cen MT Condensed Extra Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            lblMoves.ForeColor = Color.Black;
+            lblMoves.ForeColor = Color.Gainsboro;
             lblMoves.Location = new Point(257, 28);
             lblMoves.Name = "lblMoves";
             lblMoves.Size = new Size(83, 66);
@@ -283,7 +284,7 @@
             // 
             // btnShuffle
             // 
-            btnShuffle.Image = Properties.Resources.shuffleIcon;
+            btnShuffle.Image = (Image)resources.GetObject("btnShuffle.Image");
             btnShuffle.Location = new Point(130, 512);
             btnShuffle.Name = "btnShuffle";
             btnShuffle.Size = new Size(50, 50);
@@ -293,7 +294,7 @@
             // 
             // btnSort
             // 
-            btnSort.Image = Properties.Resources.sortIcon;
+            btnSort.Image = (Image)resources.GetObject("btnSort.Image");
             btnSort.Location = new Point(399, 519);
             btnSort.Name = "btnSort";
             btnSort.Size = new Size(50, 50);
@@ -582,34 +583,34 @@
             // 
             selectDifficultyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { easyMenuItem, mediumMenuItem, hardMenuItem });
             selectDifficultyToolStripMenuItem.Name = "selectDifficultyToolStripMenuItem";
-            selectDifficultyToolStripMenuItem.Size = new Size(224, 26);
+            selectDifficultyToolStripMenuItem.Size = new Size(152, 26);
             selectDifficultyToolStripMenuItem.Text = "Difficulty";
             // 
             // easyMenuItem
             // 
             easyMenuItem.Name = "easyMenuItem";
-            easyMenuItem.Size = new Size(224, 26);
+            easyMenuItem.Size = new Size(147, 26);
             easyMenuItem.Text = "Easy";
             easyMenuItem.Click += stripMenuItemClicked;
             // 
             // mediumMenuItem
             // 
             mediumMenuItem.Name = "mediumMenuItem";
-            mediumMenuItem.Size = new Size(224, 26);
+            mediumMenuItem.Size = new Size(147, 26);
             mediumMenuItem.Text = "Medium";
             mediumMenuItem.Click += stripMenuItemClicked;
             // 
             // hardMenuItem
             // 
             hardMenuItem.Name = "hardMenuItem";
-            hardMenuItem.Size = new Size(224, 26);
+            hardMenuItem.Size = new Size(147, 26);
             hardMenuItem.Text = "Hard";
             hardMenuItem.Click += stripMenuItemClicked;
             // 
             // exitStripMenu
             // 
             exitStripMenu.Name = "exitStripMenu";
-            exitStripMenu.Size = new Size(224, 26);
+            exitStripMenu.Size = new Size(152, 26);
             exitStripMenu.Text = "Exit";
             exitStripMenu.Click += stripMenuItemClicked;
             // 
@@ -617,8 +618,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.LightGray;
-            BackgroundImage = Properties.Resources.background;
+            BackColor = Color.SteelBlue;
+            BackgroundImage = Properties.Resources.background_mid;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(1088, 553);
             Controls.Add(btnSort);
@@ -661,6 +662,8 @@
             Controls.Add(lblFour);
             Controls.Add(lblOne);
             Controls.Add(menuStrip1);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
