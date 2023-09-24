@@ -23,7 +23,7 @@ namespace Sliding_puzzle
 
         public Form1()
         {
-            
+
             InitializeComponent();
 
             Intro();
@@ -86,12 +86,27 @@ namespace Sliding_puzzle
             }
         }
 
-        private void SetScreenSize(int screen, string title, int movesX = 0, int addSize = 0)
+        private void SetScreenSize(int screen, string title, int movesX = 0)
         {
-            Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
-            Image resizedImage = new Bitmap(backgroundImage, 406 + addSize, 406 + addSize);
+            switch (Difficulty)
+            {
+                case "easy":
+                    Image backgroundImage = Properties.Resources.background_easy;
+                    this.BackgroundImage = backgroundImage;
+                    break;
+                case "medium":
+                    backgroundImage = Properties.Resources.background_mid;
+                    this.BackgroundImage = backgroundImage;
+                    break;
+                case "hard":
+                    backgroundImage = Properties.Resources.background_hard;
+                    this.BackgroundImage = backgroundImage;
+                    break;
+            }
+
+            //Uses shuffle icon image
+
             this.ClientSize = new Size(screen, screen);
-            this.BackgroundImage = resizedImage;
             this.Text = $"Sliding Puzzle {title} - Fabio Weck";
             lblMoves.Location = new Point(260 + movesX, 35);
         }
@@ -107,22 +122,22 @@ namespace Sliding_puzzle
                 }
             }
 
-            switch(Difficulty)
+            switch (Difficulty)
             {
                 case "easy":
                     SetScreenSize(600, "4x4", 0);
                     break;
 
                 case "medium":
-                    SetScreenSize(700, "5x5", 50, 100);
+                    SetScreenSize(700, "5x5", 50);
                     break;
 
                 case "hard":
-                    SetScreenSize(800, "6x6", 100, 200);
+                    SetScreenSize(800, "6x6", 100);
                     break;
             }
 
-            CenterToScreen();        
+            CenterToScreen();
 
         }
 
@@ -148,9 +163,9 @@ namespace Sliding_puzzle
             {
                 boardAddition += 200;
             }
-            
+
             Image shuffleIcon = Properties.Resources.shuffleIcon;   //Uses shuffle icon image
-            DefineIcons(shuffleIcon, btnShuffle,125, boardAddition, "Shuffle all tiles");
+            DefineIcons(shuffleIcon, btnShuffle, 125, boardAddition, "Shuffle all tiles");
             Image sortIcon = Properties.Resources.sortIcon;
             DefineIcons(sortIcon, btnSort, 425 + boardAddition, boardAddition, "Sort all tiles");
 
@@ -233,7 +248,7 @@ namespace Sliding_puzzle
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if (i == rows - 1  && j == cols - 1)
+                    if (i == rows - 1 && j == cols - 1)
                     {
                         Labels[i, j] = AllLabels[35];
                         return;
@@ -256,7 +271,7 @@ namespace Sliding_puzzle
                 lblThirtyOne, lblThirtyTwo, lblThirtyThree, lblThirtyFour, lblThirtyFive, lblEmpty
             };
 
-            if (reset == "no") 
+            if (reset == "no")
             {
                 foreach (Label label in AllLabels)
                 {
@@ -646,7 +661,7 @@ namespace Sliding_puzzle
         {
             ToolStripMenuItem selectedItem = (ToolStripMenuItem)sender;
 
-            switch(selectedItem.Text)
+            switch (selectedItem.Text)
             {
                 case "Easy":
                     Difficulty = "easy";
@@ -666,7 +681,7 @@ namespace Sliding_puzzle
                 default:
                     Application.Exit();
                     break;
-            }   
+            }
         }
     }
 }
