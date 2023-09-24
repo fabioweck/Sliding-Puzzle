@@ -18,28 +18,78 @@ namespace Sliding_puzzle
         public Label[] AllLabels { get; set; }
         public int Moves { get; set; } = 0;
         public static string Difficulty { get; set; }
+        public Form intro { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-
-            Difficulty = "hard";
-
-            SetForm(Difficulty);
-            SetIcons(Difficulty);
-            DefineArray(Difficulty);
+            Intro();
+            SetForm();
+            SetIcons();
+            DefineArray();
             ShuffleArray(Labels);
-            RenderNumbers(Difficulty);
+            RenderNumbers();
+        }
+
+        private void Intro()
+        {
+            intro = new();
+            intro.Size = new Size(300, 300);
+            intro.StartPosition = FormStartPosition.CenterScreen;
+
+            Label selectDifficulty = new();
+            selectDifficulty.AutoSize = true;
+            selectDifficulty.Font = new Font("Tw Cen MT Condensed Extra Bold", 12);
+            selectDifficulty.Location = new Point(130 - selectDifficulty.Width / 2, 15);
+            selectDifficulty.Text = "Select difficulty";
+
+            RadioButton selectEasy = new();
+            selectEasy.Location = new Point(100, 60);
+            selectEasy.Text = "Easy";
+            selectEasy.Checked = true;
+
+            RadioButton selectMedium = new();
+            selectMedium.Text = "Medium";
+            selectMedium.Location = new Point(100, 100);
+
+            RadioButton selectHard = new();
+            selectHard.Text = "Hard";
+            selectHard.Location = new Point(100, 140);
+
+
+            Button start = new();
+            start.Size = new Size(50, 30);
+            start.Location = new Point(110, 200);
+            start.Text = "Start";
+            start.Click += Start;
+
+            intro.Controls.Add(selectDifficulty);
+            intro.Controls.Add(selectEasy);
+            intro.Controls.Add(selectMedium);
+            intro.Controls.Add(selectHard);
+            intro.Controls.Add(start);
+
+            CenterToScreen();
+            intro.ShowDialog();
+
+            if (selectEasy.Checked) Difficulty = "easy";
+            else if (selectMedium.Checked) Difficulty = "medium";
+            else if (selectHard.Checked) Difficulty = "hard";
+        }
+
+        private void Start(object? sender, EventArgs e)
+        {
+            intro.Close();
         }
 
         //Set the form inner size, title and background
-        private void SetForm(string difficulty)
+        private void SetForm()
         {
-            
+
             Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
             Image resizedImage = new Bitmap(backgroundImage, 406, 406);
 
-            if (difficulty == "easy")
+            if (Difficulty == "easy")
             {
                 this.ClientSize = new Size(600, 600);
                 this.BackgroundImage = resizedImage;
@@ -48,7 +98,7 @@ namespace Sliding_puzzle
                 CenterToScreen();
             }
 
-            else if (difficulty == "medium")
+            else if (Difficulty == "medium")
             {
                 this.ClientSize = new Size(700, 700);
                 resizedImage = new Bitmap(backgroundImage, 506, 506);
@@ -58,7 +108,7 @@ namespace Sliding_puzzle
                 CenterToScreen();
             }
 
-            else if (difficulty == "hard")
+            else if (Difficulty == "hard")
             {
                 this.ClientSize = new Size(800, 800);
                 resizedImage = new Bitmap(backgroundImage, 606, 606);
@@ -71,15 +121,15 @@ namespace Sliding_puzzle
         }
 
         //Sets the icons for shuffle and sort buttons
-        private void SetIcons(string difficulty)
+        private void SetIcons()
         {
             int boardAddition = 0;
 
-            if (difficulty == "medium")
+            if (Difficulty == "medium")
             {
                 boardAddition += 100;
             }
-            else if (difficulty == "hard")
+            else if (Difficulty == "hard")
             {
                 boardAddition += 200;
             }
@@ -105,7 +155,7 @@ namespace Sliding_puzzle
             Moves = 0;                           //Resets number of moves
             lblMoves.Text = $"Moves: {Moves}";
             ShuffleArray(Labels);                //Shuffles the array
-            RenderNumbers(Difficulty);                     //Renders tiles on the screen
+            RenderNumbers();                     //Renders tiles on the screen
         }
 
         //Method to handle the sort button
@@ -113,22 +163,22 @@ namespace Sliding_puzzle
         {
             Moves = 0;                           //Resets number of moves
             lblMoves.Text = $"Moves: {Moves}";
-            DefineArray(Difficulty, "reset");
-            RenderNumbers(Difficulty);    //Renders the tile on the screen
+            DefineArray("reset");
+            RenderNumbers();    //Renders the tile on the screen
         }
 
         //Method to render the numbers on the screen
-        private void RenderNumbers(string difficulty)
+        private void RenderNumbers()
         {
             int locationX = 100; //Sets the initial position on the screen
             int locationY = 100;
             int counter = 0;
             int cols = 0;         //Counts the number of iterations in order to
-                                 //add vertical space after 4 buttons placed in a row
+                                  //add vertical space after 4 buttons placed in a row
 
-            if(difficulty == "easy") cols = 4;
-            else if (difficulty == "medium") cols = 5;
-            else if (difficulty == "hard") cols = 6;
+            if (Difficulty == "easy") cols = 4;
+            else if (Difficulty == "medium") cols = 5;
+            else if (Difficulty == "hard") cols = 6;
 
 
             foreach (Label label in Labels)
@@ -163,7 +213,7 @@ namespace Sliding_puzzle
             }
         }
 
-        private void DefineArray(string difficulty, string reset = "no")
+        private void DefineArray(string reset = "no")
         {
             AllLabels = new Label[]
             {
@@ -176,22 +226,22 @@ namespace Sliding_puzzle
             };
 
             //Defines the array of labels with their names 
-            if (difficulty == "easy")
+            if (Difficulty == "easy")
             {
                 int counter = 0;
 
-                Labels = new Label[4,4];
+                Labels = new Label[4, 4];
 
-                for(int i = 0; i < 4; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    for(int j = 0; j < 4; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         if (i == 3 && j == 3)
                         {
                             Labels[i, j] = AllLabels[35];
 
                             //Assigns each label to the LabelClick method
-                            if (reset == "no") 
+                            if (reset == "no")
                             {
                                 foreach (Label label in Labels)
                                 {
@@ -204,7 +254,7 @@ namespace Sliding_puzzle
                             {
                                 return;
                             }
-                            
+
                         }
                         Labels[i, j] = AllLabels[counter];
                         counter++;
@@ -212,7 +262,7 @@ namespace Sliding_puzzle
                 }
             }
 
-            else if (difficulty == "medium")
+            else if (Difficulty == "medium")
             {
                 int counter = 0;
 
@@ -246,7 +296,7 @@ namespace Sliding_puzzle
                 }
             }
 
-            else if (difficulty == "hard")
+            else if (Difficulty == "hard")
             {
                 int counter = 0;
 
@@ -261,7 +311,7 @@ namespace Sliding_puzzle
                     }
                 }
 
-                if(reset == "no")
+                if (reset == "no")
                 {
                     foreach (Label label in Labels)
                     {
@@ -471,7 +521,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile to the left
             Moves += 1;                         //Count one move
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers(Difficulty);                    //Renders the array again
+            RenderNumbers();                    //Renders the array again
             CheckOrder();                       //Checks win or not
         }
 
@@ -481,7 +531,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile to the right
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers(Difficulty);
+            RenderNumbers();
             CheckOrder();
         }
 
@@ -491,7 +541,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;            //Moves empty tile up
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers(Difficulty);
+            RenderNumbers();
             CheckOrder();
         }
 
@@ -502,7 +552,7 @@ namespace Sliding_puzzle
             Labels[i, j] = lblEmpty;
             Moves += 1;
             lblMoves.Text = $"Moves: {Moves}";
-            RenderNumbers(Difficulty);
+            RenderNumbers();
             CheckOrder();
         }
 
@@ -598,7 +648,7 @@ namespace Sliding_puzzle
                     if (Labels[i, j].Text == counter.ToString())       //Checks labels text
                     {
                         if (counter == Labels.Length - 1 && Labels[rows - 1, cols - 1] == lblEmpty) //Checks if it was possible to count 15 times
-                                                                       //And if the empty tile is on the last position on the board
+                                                                                                    //And if the empty tile is on the last position on the board
                         {
                             DialogResult = MessageBox.Show($"You completed the game after {Moves} moves!\nWould you like to play again?", "Congrats!", MessageBoxButtons.YesNo);
 
@@ -607,7 +657,8 @@ namespace Sliding_puzzle
                                 Moves = 0;                          //Resets the number of moves
                                 lblMoves.Text = $"Moves: {Moves}";
                                 ShuffleArray(Labels);               //Shuffle the array again
-                                RenderNumbers(Difficulty);                    //Renders the shuffled array on the screen
+                                RenderNumbers();          //Renders the shuffled array on the screen
+                                return;
                             }
                             else //If the user chose to not play again
                             {
