@@ -28,7 +28,7 @@ namespace Sliding_puzzle
 
             Intro();
             SetForm();
-            SetIcons();
+            SetIconsOnScreen();
             DefineArray();
             ShuffleArray(Labels);
             RenderNumbers();
@@ -86,6 +86,16 @@ namespace Sliding_puzzle
             }
         }
 
+        private void SetScreenSize(int screen, string title, int movesX = 0, int addSize = 0)
+        {
+            Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
+            Image resizedImage = new Bitmap(backgroundImage, 406 + addSize, 406 + addSize);
+            this.ClientSize = new Size(screen, screen);
+            this.BackgroundImage = resizedImage;
+            this.Text = $"Sliding Puzzle {title} - Fabio Weck";
+            lblMoves.Location = new Point(260 + movesX, 35);
+        }
+
         //Set the form inner size, title and background
         private void SetForm(string reset = "no")
         {
@@ -97,41 +107,36 @@ namespace Sliding_puzzle
                 }
             }
 
-            Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
-            Image resizedImage = new Bitmap(backgroundImage, 406, 406);
-
-            if (Difficulty == "easy")
+            switch(Difficulty)
             {
-                this.ClientSize = new Size(600, 600);
-                this.BackgroundImage = resizedImage;
-                this.Text = "Sliding Puzzle 4x4 - Fabio Weck";
-                lblMoves.Location = new Point(260, 35);
-            }
+                case "easy":
+                    SetScreenSize(600, "4x4", 0);
+                    break;
 
-            else if (Difficulty == "medium")
-            {
-                this.ClientSize = new Size(700, 700);
-                resizedImage = new Bitmap(backgroundImage, 506, 506);
-                this.BackgroundImage = resizedImage;
-                this.Text = "Sliding Puzzle 5x5 - Fabio Weck";
-                lblMoves.Location = new Point(310, 35);
-            }
+                case "medium":
+                    SetScreenSize(700, "5x5", 50, 100);
+                    break;
 
-            else if (Difficulty == "hard")
-            {
-                this.ClientSize = new Size(800, 800);
-                resizedImage = new Bitmap(backgroundImage, 606, 606);
-                this.BackgroundImage = resizedImage;
-                this.Text = "Sliding Puzzle 6x6 - Fabio Weck";
-                lblMoves.Location = new Point(360, 35);
+                case "hard":
+                    SetScreenSize(800, "6x6", 100, 200);
+                    break;
             }
 
             CenterToScreen();        
 
         }
 
+        private void DefineIcons(Image icon, Button btn, int locationX, int boardAddition, string tooltip)
+        {
+            Image resizedIcon = new Bitmap(icon, 40, 40);    //Set icon size (width, height)
+            btn.Image = resizedIcon;                         //Assign icon to the button
+            btn.Location = new Point(locationX, 525 + boardAddition);
+            ToolTip shuffleTooltip = new ToolTip();                 //Adds tooltip when te user hovers the pointer over the button
+            shuffleTooltip.SetToolTip(btnShuffle, tooltip);
+        }
+
         //Sets the icons for shuffle and sort buttons
-        private void SetIcons()
+        private void SetIconsOnScreen()
         {
             int boardAddition = 0;
 
@@ -143,27 +148,18 @@ namespace Sliding_puzzle
             {
                 boardAddition += 200;
             }
-
+            
             Image shuffleIcon = Properties.Resources.shuffleIcon;   //Uses shuffle icon image
-            Image resizedIcon = new Bitmap(shuffleIcon, 40, 40);    //Set icon size (width, height)
-            btnShuffle.Image = resizedIcon;                         //Assign icon to the button
-            btnShuffle.Location = new Point(125, 525 + boardAddition);
-            ToolTip shuffleTooltip = new ToolTip();                 //Adds tooltip when te user hovers the pointer over the button
-            shuffleTooltip.SetToolTip(btnShuffle, "Shuffle all tiles");
-
+            DefineIcons(shuffleIcon, btnShuffle,125, boardAddition, "Shuffle all tiles");
             Image sortIcon = Properties.Resources.sortIcon;
-            resizedIcon = new Bitmap(sortIcon, 40, 40);
-            btnSort.Image = resizedIcon;
-            btnSort.Location = new Point(425 + boardAddition, 525 + boardAddition);
-            ToolTip sortTooltip = new ToolTip();
-            sortTooltip.SetToolTip(btnSort, "Sort all tiles");
+            DefineIcons(sortIcon, btnSort, 425 + boardAddition, boardAddition, "Sort all tiles");
+
         }
 
         //Method to handle shuffle button
         private void btnShuffle_Click(object sender, EventArgs e)
         {
-            Moves = 0;                           //Resets number of moves
-            lblMoves.Text = $"Moves: {Moves}";
+            ResetMoves();
             ShuffleArray(Labels);                //Shuffles the array
             RenderNumbers();                     //Renders tiles on the screen
         }
@@ -171,8 +167,7 @@ namespace Sliding_puzzle
         //Method to handle the sort button
         private void btnSort_Click(object sender, EventArgs e)
         {
-            Moves = 0;                           //Resets number of moves
-            lblMoves.Text = $"Moves: {Moves}";
+            ResetMoves();
             DefineArray("reset");
             RenderNumbers();    //Renders the tile on the screen
         }
@@ -189,7 +184,6 @@ namespace Sliding_puzzle
             if (Difficulty == "easy") cols = 4;
             else if (Difficulty == "medium") cols = 5;
             else if (Difficulty == "hard") cols = 6;
-
 
             foreach (Label label in Labels)
             {
@@ -229,6 +223,27 @@ namespace Sliding_puzzle
             }
         }
 
+        private void SetArraySize(int rows, int cols)
+        {
+            int counter = 0;
+
+            Labels = new Label[rows, cols];
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (i == rows - 1  && j == cols - 1)
+                    {
+                        Labels[i, j] = AllLabels[35];
+                        return;
+                    }
+                    Labels[i, j] = AllLabels[counter];
+                    counter++;
+                }
+            }
+        }
+
         private void DefineArray(string reset = "no")
         {
             AllLabels = new Label[]
@@ -249,66 +264,20 @@ namespace Sliding_puzzle
                 }
             }
 
-            //Defines the array of labels with their names 
+            //Defines the array of labels with their names based on difficulty level
             if (Difficulty == "easy")
             {
-
-                int counter = 0;
-
-                Labels = new Label[4, 4];
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (i == 3 && j == 3)
-                        {
-                            Labels[i, j] = AllLabels[35];
-                            return;
-                        }
-                        Labels[i, j] = AllLabels[counter];
-                        counter++;
-                    }
-                }
+                SetArraySize(4, 4);
             }
 
             else if (Difficulty == "medium")
             {
-
-                int counter = 0;
-
-                Labels = new Label[5, 5];
-
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        if (i == 4 && j == 4)
-                        {
-                            Labels[i, j] = AllLabels[35];
-                            return;
-                        }
-                        Labels[i, j] = AllLabels[counter];
-                        counter++;
-                    }
-                }
+                SetArraySize(5, 5);
             }
 
             else if (Difficulty == "hard")
             {
-
-                int counter = 0;
-
-                Labels = new Label[6, 6];
-
-                for (int i = 0; i < 6; i++)
-                {
-                    for (int j = 0; j < 6; j++)
-                    {
-                        Labels[i, j] = AllLabels[counter];
-                        counter++;
-                    }
-                }
+                SetArraySize(6, 6);
             }
         }
 
@@ -491,7 +460,6 @@ namespace Sliding_puzzle
             {
                 EmptyBelow(i, j, currentLabel);
             }
-
         }
 
         /*
@@ -504,8 +472,7 @@ namespace Sliding_puzzle
         {
             Labels[i, j + 1] = currentLabel;    //Moves the clicked tile to the right
             Labels[i, j] = lblEmpty;            //Moves empty tile to the left
-            Moves += 1;                         //Count one move
-            lblMoves.Text = $"Moves: {Moves}";
+            AddMove();                          //Count one move
             RenderNumbers();                    //Renders the array again
             CheckOrder();                       //Checks win or not
         }
@@ -514,8 +481,7 @@ namespace Sliding_puzzle
         {
             Labels[i, j - 1] = currentLabel;    //Moves the clicked tile to the left
             Labels[i, j] = lblEmpty;            //Moves empty tile to the right
-            Moves += 1;
-            lblMoves.Text = $"Moves: {Moves}";
+            AddMove();
             RenderNumbers();
             CheckOrder();
         }
@@ -524,8 +490,7 @@ namespace Sliding_puzzle
         {
             Labels[i + 1, j] = currentLabel;    //Moves the clicked tile down
             Labels[i, j] = lblEmpty;            //Moves empty tile up
-            Moves += 1;
-            lblMoves.Text = $"Moves: {Moves}";
+            AddMove();
             RenderNumbers();
             CheckOrder();
         }
@@ -535,8 +500,7 @@ namespace Sliding_puzzle
             Labels[i - 1, j] = currentLabel;    //Moves the clicked tile up
             Labels[i, j] = lblEmpty;            //Moves empty tile down
             Labels[i, j] = lblEmpty;
-            Moves += 1;
-            lblMoves.Text = $"Moves: {Moves}";
+            AddMove();
             RenderNumbers();
             CheckOrder();
         }
@@ -639,8 +603,7 @@ namespace Sliding_puzzle
 
                             if (DialogResult == DialogResult.Yes)   //If the user wants to play again
                             {
-                                Moves = 0;                          //Resets the number of moves
-                                lblMoves.Text = $"Moves: {Moves}";
+                                ResetMoves();                       //Resets the number of moves
                                 ShuffleArray(Labels);               //Shuffle the array again
                                 RenderNumbers();          //Renders the shuffled array on the screen
                                 return;
@@ -657,6 +620,28 @@ namespace Sliding_puzzle
             }
         }
 
+        private void AddMove()
+        {
+            Moves += 1;
+            lblMoves.Text = $"Moves: {Moves}";
+        }
+
+        private void ResetMoves()
+        {
+            Moves = 0;
+            lblMoves.Text = $"Moves: {Moves}";
+        }
+
+        private void ChangeDifficultyAndReset()
+        {
+            ResetMoves();
+            SetForm("reset");
+            SetIconsOnScreen();
+            DefineArray("reset");
+            ShuffleArray(Labels);
+            RenderNumbers("reset");
+        }
+
         private void stripMenuItemClicked(object sender, EventArgs e)
         {
             ToolStripMenuItem selectedItem = (ToolStripMenuItem)sender;
@@ -665,35 +650,17 @@ namespace Sliding_puzzle
             {
                 case "Easy":
                     Difficulty = "easy";
-                    Moves = 0;
-                    lblMoves.Text = $"Moves: {Moves}";
-                    SetForm("reset");
-                    SetIcons();
-                    DefineArray("reset");
-                    ShuffleArray(Labels);
-                    RenderNumbers("reset");
+                    ChangeDifficultyAndReset();
                     break;
 
                 case "Medium":
                     Difficulty = "medium";
-                    Moves = 0;
-                    lblMoves.Text = $"Moves: {Moves}";
-                    SetForm("reset");
-                    SetIcons();
-                    DefineArray("reset");
-                    ShuffleArray(Labels);
-                    RenderNumbers("reset");
+                    ChangeDifficultyAndReset();
                     break;
 
                 case "Hard":
                     Difficulty = "hard";
-                    Moves = 0;
-                    lblMoves.Text = $"Moves: {Moves}";
-                    SetForm("reset");
-                    SetIcons();
-                    DefineArray("reset");
-                    ShuffleArray(Labels);
-                    RenderNumbers("reset");
+                    ChangeDifficultyAndReset();
                     break;
 
                 default:
