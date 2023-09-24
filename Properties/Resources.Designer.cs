@@ -63,16 +63,6 @@ namespace Sliding_puzzle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap background {
-            get {
-                object obj = ResourceManager.GetObject("background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap background_easy {
             get {
                 object obj = ResourceManager.GetObject("background_easy", resourceCulture);
@@ -103,9 +93,9 @@ namespace Sliding_puzzle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon puzzleIcon {
+        internal static System.Drawing.Icon puzzle_icon {
             get {
-                object obj = ResourceManager.GetObject("puzzleIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("puzzle_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
