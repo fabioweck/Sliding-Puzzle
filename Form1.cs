@@ -217,7 +217,7 @@ namespace Sliding_puzzle
                 else
                 {
                     label.BorderStyle = BorderStyle.FixedSingle;
-                    label.BackColor = Color.White;
+                    label.BackColor = Color.Gainsboro;
                 }
 
                 label.Size = new Size(100, 100);
