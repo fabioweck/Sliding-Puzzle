@@ -251,7 +251,7 @@
             lblEmpty.BackColor = Color.Silver;
             lblEmpty.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblEmpty.ForeColor = Color.Transparent;
-            lblEmpty.Location = new Point(437, 455);
+            lblEmpty.Location = new Point(1264, 487);
             lblEmpty.Margin = new Padding(0);
             lblEmpty.Name = "lblEmpty";
             lblEmpty.Size = new Size(38, 39);
@@ -307,7 +307,7 @@
             lblEighteen.BackColor = Color.Transparent;
             lblEighteen.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblEighteen.ForeColor = Color.Transparent;
-            lblEighteen.Location = new Point(437, 298);
+            lblEighteen.Location = new Point(1264, 330);
             lblEighteen.Margin = new Padding(0);
             lblEighteen.Name = "lblEighteen";
             lblEighteen.Size = new Size(38, 39);
@@ -320,7 +320,7 @@
             lblSeventeen.BackColor = Color.Transparent;
             lblSeventeen.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblSeventeen.ForeColor = Color.Transparent;
-            lblSeventeen.Location = new Point(399, 298);
+            lblSeventeen.Location = new Point(1226, 330);
             lblSeventeen.Margin = new Padding(0);
             lblSeventeen.Name = "lblSeventeen";
             lblSeventeen.Size = new Size(38, 39);
@@ -333,7 +333,7 @@
             lblSixteen.BackColor = Color.Transparent;
             lblSixteen.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblSixteen.ForeColor = Color.Transparent;
-            lblSixteen.Location = new Point(361, 298);
+            lblSixteen.Location = new Point(1188, 330);
             lblSixteen.Margin = new Padding(0);
             lblSixteen.Name = "lblSixteen";
             lblSixteen.Size = new Size(38, 39);
@@ -346,7 +346,7 @@
             lblTwentyFour.BackColor = Color.Transparent;
             lblTwentyFour.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyFour.ForeColor = Color.Transparent;
-            lblTwentyFour.Location = new Point(437, 351);
+            lblTwentyFour.Location = new Point(1264, 383);
             lblTwentyFour.Margin = new Padding(0);
             lblTwentyFour.Name = "lblTwentyFour";
             lblTwentyFour.Size = new Size(38, 39);
@@ -359,7 +359,7 @@
             lblTwentyThree.BackColor = Color.Transparent;
             lblTwentyThree.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyThree.ForeColor = Color.Transparent;
-            lblTwentyThree.Location = new Point(399, 351);
+            lblTwentyThree.Location = new Point(1226, 383);
             lblTwentyThree.Margin = new Padding(0);
             lblTwentyThree.Name = "lblTwentyThree";
             lblTwentyThree.Size = new Size(38, 39);
@@ -372,7 +372,7 @@
             lblTwentyTwo.BackColor = Color.Transparent;
             lblTwentyTwo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyTwo.ForeColor = Color.Transparent;
-            lblTwentyTwo.Location = new Point(361, 351);
+            lblTwentyTwo.Location = new Point(1188, 383);
             lblTwentyTwo.Margin = new Padding(0);
             lblTwentyTwo.Name = "lblTwentyTwo";
             lblTwentyTwo.Size = new Size(38, 39);
@@ -385,7 +385,7 @@
             lblTwentyOne.BackColor = Color.Transparent;
             lblTwentyOne.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyOne.ForeColor = Color.Transparent;
-            lblTwentyOne.Location = new Point(323, 351);
+            lblTwentyOne.Location = new Point(1150, 383);
             lblTwentyOne.Margin = new Padding(0);
             lblTwentyOne.Name = "lblTwentyOne";
             lblTwentyOne.Size = new Size(38, 39);
@@ -398,7 +398,7 @@
             lblTwenty.BackColor = Color.Transparent;
             lblTwenty.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwenty.ForeColor = Color.Transparent;
-            lblTwenty.Location = new Point(285, 351);
+            lblTwenty.Location = new Point(1112, 383);
             lblTwenty.Margin = new Padding(0);
             lblTwenty.Name = "lblTwenty";
             lblTwenty.Size = new Size(38, 39);
@@ -411,7 +411,7 @@
             lblNineteen.BackColor = Color.Transparent;
             lblNineteen.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblNineteen.ForeColor = Color.Transparent;
-            lblNineteen.Location = new Point(247, 351);
+            lblNineteen.Location = new Point(1074, 383);
             lblNineteen.Margin = new Padding(0);
             lblNineteen.Name = "lblNineteen";
             lblNineteen.Size = new Size(38, 39);
@@ -424,7 +424,7 @@
             lblThirty.BackColor = Color.Transparent;
             lblThirty.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirty.ForeColor = Color.Transparent;
-            lblThirty.Location = new Point(437, 402);
+            lblThirty.Location = new Point(1264, 434);
             lblThirty.Margin = new Padding(0);
             lblThirty.Name = "lblThirty";
             lblThirty.Size = new Size(38, 39);
@@ -437,7 +437,7 @@
             lblTwentyNine.BackColor = Color.Transparent;
             lblTwentyNine.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyNine.ForeColor = Color.Transparent;
-            lblTwentyNine.Location = new Point(399, 402);
+            lblTwentyNine.Location = new Point(1226, 434);
             lblTwentyNine.Margin = new Padding(0);
             lblTwentyNine.Name = "lblTwentyNine";
             lblTwentyNine.Size = new Size(38, 39);
@@ -450,7 +450,7 @@
             lblTwentyEight.BackColor = Color.Transparent;
             lblTwentyEight.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyEight.ForeColor = Color.Transparent;
-            lblTwentyEight.Location = new Point(361, 402);
+            lblTwentyEight.Location = new Point(1188, 434);
             lblTwentyEight.Margin = new Padding(0);
             lblTwentyEight.Name = "lblTwentyEight";
             lblTwentyEight.Size = new Size(38, 39);
@@ -463,7 +463,7 @@
             lblTwentySeven.BackColor = Color.Transparent;
             lblTwentySeven.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentySeven.ForeColor = Color.Transparent;
-            lblTwentySeven.Location = new Point(323, 402);
+            lblTwentySeven.Location = new Point(1150, 434);
             lblTwentySeven.Margin = new Padding(0);
             lblTwentySeven.Name = "lblTwentySeven";
             lblTwentySeven.Size = new Size(38, 39);
@@ -476,7 +476,7 @@
             lblTwentySix.BackColor = Color.Transparent;
             lblTwentySix.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentySix.ForeColor = Color.Transparent;
-            lblTwentySix.Location = new Point(285, 402);
+            lblTwentySix.Location = new Point(1112, 434);
             lblTwentySix.Margin = new Padding(0);
             lblTwentySix.Name = "lblTwentySix";
             lblTwentySix.Size = new Size(38, 39);
@@ -489,7 +489,7 @@
             lblTwentyFive.BackColor = Color.Transparent;
             lblTwentyFive.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblTwentyFive.ForeColor = Color.Transparent;
-            lblTwentyFive.Location = new Point(247, 402);
+            lblTwentyFive.Location = new Point(1074, 434);
             lblTwentyFive.Margin = new Padding(0);
             lblTwentyFive.Name = "lblTwentyFive";
             lblTwentyFive.Size = new Size(38, 39);
@@ -502,7 +502,7 @@
             lblThirtyFive.BackColor = Color.Transparent;
             lblThirtyFive.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirtyFive.ForeColor = Color.Transparent;
-            lblThirtyFive.Location = new Point(399, 455);
+            lblThirtyFive.Location = new Point(1226, 487);
             lblThirtyFive.Margin = new Padding(0);
             lblThirtyFive.Name = "lblThirtyFive";
             lblThirtyFive.Size = new Size(38, 39);
@@ -515,7 +515,7 @@
             lblThirtyFour.BackColor = Color.Transparent;
             lblThirtyFour.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirtyFour.ForeColor = Color.Transparent;
-            lblThirtyFour.Location = new Point(361, 455);
+            lblThirtyFour.Location = new Point(1188, 487);
             lblThirtyFour.Margin = new Padding(0);
             lblThirtyFour.Name = "lblThirtyFour";
             lblThirtyFour.Size = new Size(38, 39);
@@ -528,7 +528,7 @@
             lblThirtyThree.BackColor = Color.Transparent;
             lblThirtyThree.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirtyThree.ForeColor = Color.Transparent;
-            lblThirtyThree.Location = new Point(323, 455);
+            lblThirtyThree.Location = new Point(1150, 487);
             lblThirtyThree.Margin = new Padding(0);
             lblThirtyThree.Name = "lblThirtyThree";
             lblThirtyThree.Size = new Size(38, 39);
@@ -541,7 +541,7 @@
             lblThirtyTwo.BackColor = Color.Transparent;
             lblThirtyTwo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirtyTwo.ForeColor = Color.Transparent;
-            lblThirtyTwo.Location = new Point(285, 455);
+            lblThirtyTwo.Location = new Point(1112, 487);
             lblThirtyTwo.Margin = new Padding(0);
             lblThirtyTwo.Name = "lblThirtyTwo";
             lblThirtyTwo.Size = new Size(38, 39);
@@ -554,7 +554,7 @@
             lblThirtyOne.BackColor = Color.Transparent;
             lblThirtyOne.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lblThirtyOne.ForeColor = Color.Transparent;
-            lblThirtyOne.Location = new Point(247, 455);
+            lblThirtyOne.Location = new Point(1074, 487);
             lblThirtyOne.Margin = new Padding(0);
             lblThirtyOne.Name = "lblThirtyOne";
             lblThirtyOne.Size = new Size(38, 39);
@@ -568,7 +568,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { gameToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(700, 28);
+            menuStrip1.Size = new Size(1342, 28);
             menuStrip1.TabIndex = 41;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -621,7 +621,7 @@
             BackColor = Color.SteelBlue;
             BackgroundImage = Properties.Resources.background_mid;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(700, 700);
+            ClientSize = new Size(1342, 700);
             Controls.Add(btnSort);
             Controls.Add(btnShuffle);
             Controls.Add(lblMoves);

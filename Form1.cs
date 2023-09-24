@@ -148,7 +148,7 @@ namespace Sliding_puzzle
             btn.Image = resizedIcon;                         //Assign icon to the button
             btn.Location = new Point(locationX, 525 + boardAddition);
             ToolTip shuffleTooltip = new ToolTip();                 //Adds tooltip when te user hovers the pointer over the button
-            shuffleTooltip.SetToolTip(btnShuffle, tooltip);
+            shuffleTooltip.SetToolTip(btn, tooltip);
         }
 
         //Sets the icons for shuffle and sort buttons
