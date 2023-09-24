@@ -67,6 +67,14 @@
             lblThirtyThree = new Label();
             lblThirtyTwo = new Label();
             lblThirtyOne = new Label();
+            menuStrip1 = new MenuStrip();
+            gameToolStripMenuItem = new ToolStripMenuItem();
+            selectDifficultyToolStripMenuItem = new ToolStripMenuItem();
+            easyMenuItem = new ToolStripMenuItem();
+            mediumMenuItem = new ToolStripMenuItem();
+            hardMenuItem = new ToolStripMenuItem();
+            exitStripMenu = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // lblOne
@@ -264,11 +272,11 @@
             // lblMoves
             // 
             lblMoves.BackColor = Color.Transparent;
-            lblMoves.Font = new Font("Tw Cen MT Condensed Extra Bold", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            lblMoves.Font = new Font("Tw Cen MT Condensed Extra Bold", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
             lblMoves.ForeColor = Color.Black;
-            lblMoves.Location = new Point(257, 18);
+            lblMoves.Location = new Point(257, 28);
             lblMoves.Name = "lblMoves";
-            lblMoves.Size = new Size(92, 66);
+            lblMoves.Size = new Size(83, 66);
             lblMoves.TabIndex = 18;
             lblMoves.Text = "Moves:0";
             lblMoves.TextAlign = ContentAlignment.TopCenter;
@@ -553,6 +561,58 @@
             lblThirtyOne.Text = "31";
             lblThirtyOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { gameToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1088, 28);
+            menuStrip1.TabIndex = 41;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // gameToolStripMenuItem
+            // 
+            gameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectDifficultyToolStripMenuItem, exitStripMenu });
+            gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            gameToolStripMenuItem.Size = new Size(62, 24);
+            gameToolStripMenuItem.Text = "Game";
+            // 
+            // selectDifficultyToolStripMenuItem
+            // 
+            selectDifficultyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { easyMenuItem, mediumMenuItem, hardMenuItem });
+            selectDifficultyToolStripMenuItem.Name = "selectDifficultyToolStripMenuItem";
+            selectDifficultyToolStripMenuItem.Size = new Size(224, 26);
+            selectDifficultyToolStripMenuItem.Text = "Difficulty";
+            // 
+            // easyMenuItem
+            // 
+            easyMenuItem.Name = "easyMenuItem";
+            easyMenuItem.Size = new Size(224, 26);
+            easyMenuItem.Text = "Easy";
+            easyMenuItem.Click += stripMenuItemClicked;
+            // 
+            // mediumMenuItem
+            // 
+            mediumMenuItem.Name = "mediumMenuItem";
+            mediumMenuItem.Size = new Size(224, 26);
+            mediumMenuItem.Text = "Medium";
+            mediumMenuItem.Click += stripMenuItemClicked;
+            // 
+            // hardMenuItem
+            // 
+            hardMenuItem.Name = "hardMenuItem";
+            hardMenuItem.Size = new Size(224, 26);
+            hardMenuItem.Text = "Hard";
+            hardMenuItem.Click += stripMenuItemClicked;
+            // 
+            // exitStripMenu
+            // 
+            exitStripMenu.Name = "exitStripMenu";
+            exitStripMenu.Size = new Size(224, 26);
+            exitStripMenu.Text = "Exit";
+            exitStripMenu.Click += stripMenuItemClicked;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -600,9 +660,14 @@
             Controls.Add(lblTwo);
             Controls.Add(lblFour);
             Controls.Add(lblOne);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Form1";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -645,5 +710,12 @@
         private Label lblThirtyThree;
         private Label lblThirtyTwo;
         private Label lblThirtyOne;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem gameToolStripMenuItem;
+        private ToolStripMenuItem selectDifficultyToolStripMenuItem;
+        private ToolStripMenuItem easyMenuItem;
+        private ToolStripMenuItem mediumMenuItem;
+        private ToolStripMenuItem hardMenuItem;
+        private ToolStripMenuItem exitStripMenu;
     }
 }

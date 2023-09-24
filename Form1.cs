@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 /*
     SODV2101 23SEPMNRT5 : Rapid Application Development
@@ -22,7 +23,9 @@ namespace Sliding_puzzle
 
         public Form1()
         {
+            
             InitializeComponent();
+
             Intro();
             SetForm();
             SetIcons();
@@ -34,32 +37,33 @@ namespace Sliding_puzzle
         private void Intro()
         {
             intro = new();
-            intro.Size = new Size(300, 300);
+            intro.Size = new Size(350, 300);
+            intro.Text = "Sliding puzzle!";
             intro.StartPosition = FormStartPosition.CenterScreen;
 
             Label selectDifficulty = new();
             selectDifficulty.AutoSize = true;
             selectDifficulty.Font = new Font("Tw Cen MT Condensed Extra Bold", 12);
-            selectDifficulty.Location = new Point(130 - selectDifficulty.Width / 2, 15);
+            selectDifficulty.Location = new Point(150 - (selectDifficulty.Width / 2), 15);
             selectDifficulty.Text = "Select difficulty";
 
             RadioButton selectEasy = new();
-            selectEasy.Location = new Point(100, 60);
+            selectEasy.Location = new Point(125, 60);
             selectEasy.Text = "Easy";
             selectEasy.Checked = true;
 
             RadioButton selectMedium = new();
             selectMedium.Text = "Medium";
-            selectMedium.Location = new Point(100, 100);
+            selectMedium.Location = new Point(125, 100);
 
             RadioButton selectHard = new();
             selectHard.Text = "Hard";
-            selectHard.Location = new Point(100, 140);
+            selectHard.Location = new Point(125, 140);
 
 
             Button start = new();
             start.Size = new Size(50, 30);
-            start.Location = new Point(110, 200);
+            start.Location = new Point(130, 200);
             start.Text = "Start";
             start.Click += Start;
 
@@ -75,16 +79,23 @@ namespace Sliding_puzzle
             if (selectEasy.Checked) Difficulty = "easy";
             else if (selectMedium.Checked) Difficulty = "medium";
             else if (selectHard.Checked) Difficulty = "hard";
-        }
 
-        private void Start(object? sender, EventArgs e)
-        {
-            intro.Close();
+            void Start(object? sender, EventArgs e)
+            {
+                intro.Close();
+            }
         }
 
         //Set the form inner size, title and background
-        private void SetForm()
+        private void SetForm(string reset = "no")
         {
+            if (reset != "no")
+            {
+                foreach (Label label in Labels)
+                {
+                    label.Visible = false;
+                }
+            }
 
             Image backgroundImage = Properties.Resources.background;   //Uses shuffle icon image
             Image resizedImage = new Bitmap(backgroundImage, 406, 406);
@@ -94,8 +105,7 @@ namespace Sliding_puzzle
                 this.ClientSize = new Size(600, 600);
                 this.BackgroundImage = resizedImage;
                 this.Text = "Sliding Puzzle 4x4 - Fabio Weck";
-                lblMoves.Location = new Point(257, 18);
-                CenterToScreen();
+                lblMoves.Location = new Point(260, 35);
             }
 
             else if (Difficulty == "medium")
@@ -104,8 +114,7 @@ namespace Sliding_puzzle
                 resizedImage = new Bitmap(backgroundImage, 506, 506);
                 this.BackgroundImage = resizedImage;
                 this.Text = "Sliding Puzzle 5x5 - Fabio Weck";
-                lblMoves.Location = new Point(307, 18);
-                CenterToScreen();
+                lblMoves.Location = new Point(310, 35);
             }
 
             else if (Difficulty == "hard")
@@ -114,9 +123,10 @@ namespace Sliding_puzzle
                 resizedImage = new Bitmap(backgroundImage, 606, 606);
                 this.BackgroundImage = resizedImage;
                 this.Text = "Sliding Puzzle 6x6 - Fabio Weck";
-                lblMoves.Location = new Point(357, 18);
-                CenterToScreen();
+                lblMoves.Location = new Point(360, 35);
             }
+
+            CenterToScreen();        
 
         }
 
@@ -168,7 +178,7 @@ namespace Sliding_puzzle
         }
 
         //Method to render the numbers on the screen
-        private void RenderNumbers()
+        private void RenderNumbers(string reset = "no")
         {
             int locationX = 100; //Sets the initial position on the screen
             int locationY = 100;
@@ -206,10 +216,16 @@ namespace Sliding_puzzle
                 label.ForeColor = Color.Black;
                 label.TextAlign = ContentAlignment.MiddleCenter;
                 label.Location = new Point(locationX, locationY);
+                label.Visible = true;
                 label.BringToFront();
 
                 locationX += 100; //Adds size to the X axis
                 counter++;
+
+                if (reset != "no")
+                {
+                    this.Controls.Add(label);
+                }
             }
         }
 
@@ -225,9 +241,18 @@ namespace Sliding_puzzle
                 lblThirtyOne, lblThirtyTwo, lblThirtyThree, lblThirtyFour, lblThirtyFive, lblEmpty
             };
 
+            if (reset == "no") 
+            {
+                foreach (Label label in AllLabels)
+                {
+                    label.Click += LabelClicked;
+                }
+            }
+
             //Defines the array of labels with their names 
             if (Difficulty == "easy")
             {
+
                 int counter = 0;
 
                 Labels = new Label[4, 4];
@@ -239,22 +264,7 @@ namespace Sliding_puzzle
                         if (i == 3 && j == 3)
                         {
                             Labels[i, j] = AllLabels[35];
-
-                            //Assigns each label to the LabelClick method
-                            if (reset == "no")
-                            {
-                                foreach (Label label in Labels)
-                                {
-                                    label.Click += LabelClicked;
-                                }
-
-                                return;
-                            }
-                            else    //If it is a reset, just returns without reassigning the method
-                            {
-                                return;
-                            }
-
+                            return;
                         }
                         Labels[i, j] = AllLabels[counter];
                         counter++;
@@ -264,6 +274,7 @@ namespace Sliding_puzzle
 
             else if (Difficulty == "medium")
             {
+
                 int counter = 0;
 
                 Labels = new Label[5, 5];
@@ -275,20 +286,7 @@ namespace Sliding_puzzle
                         if (i == 4 && j == 4)
                         {
                             Labels[i, j] = AllLabels[35];
-
-                            //Assigns each label to the LabelClick method
-                            if (reset == "no")
-                            {
-                                foreach (Label label in Labels)
-                                {
-                                    label.Click += LabelClicked;
-                                }
-                                return;
-                            }
-                            else    //If it is a reset, just returns without reassigning the method
-                            {
-                                return;
-                            }
+                            return;
                         }
                         Labels[i, j] = AllLabels[counter];
                         counter++;
@@ -298,6 +296,7 @@ namespace Sliding_puzzle
 
             else if (Difficulty == "hard")
             {
+
                 int counter = 0;
 
                 Labels = new Label[6, 6];
@@ -309,20 +308,6 @@ namespace Sliding_puzzle
                         Labels[i, j] = AllLabels[counter];
                         counter++;
                     }
-                }
-
-                if (reset == "no")
-                {
-                    foreach (Label label in Labels)
-                    {
-                        label.Click += LabelClicked;
-                    }
-
-                    return;
-                }
-                else
-                {
-                    return;
                 }
             }
         }
@@ -670,6 +655,51 @@ namespace Sliding_puzzle
                     }
                 }
             }
+        }
+
+        private void stripMenuItemClicked(object sender, EventArgs e)
+        {
+            ToolStripMenuItem selectedItem = (ToolStripMenuItem)sender;
+
+            switch(selectedItem.Text)
+            {
+                case "Easy":
+                    Difficulty = "easy";
+                    Moves = 0;
+                    lblMoves.Text = $"Moves: {Moves}";
+                    SetForm("reset");
+                    SetIcons();
+                    DefineArray("reset");
+                    ShuffleArray(Labels);
+                    RenderNumbers("reset");
+                    break;
+
+                case "Medium":
+                    Difficulty = "medium";
+                    Moves = 0;
+                    lblMoves.Text = $"Moves: {Moves}";
+                    SetForm("reset");
+                    SetIcons();
+                    DefineArray("reset");
+                    ShuffleArray(Labels);
+                    RenderNumbers("reset");
+                    break;
+
+                case "Hard":
+                    Difficulty = "hard";
+                    Moves = 0;
+                    lblMoves.Text = $"Moves: {Moves}";
+                    SetForm("reset");
+                    SetIcons();
+                    DefineArray("reset");
+                    ShuffleArray(Labels);
+                    RenderNumbers("reset");
+                    break;
+
+                default:
+                    Application.Exit();
+                    break;
+            }   
         }
     }
 }
