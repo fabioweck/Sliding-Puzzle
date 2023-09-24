@@ -39,6 +39,7 @@ namespace Sliding_puzzle
             intro = new();
             intro.Size = new Size(350, 300);
             intro.Text = "Sliding puzzle!";
+            intro.Icon = Properties.Resources.puzzleIcon;
             intro.StartPosition = FormStartPosition.CenterScreen;
 
             Label selectDifficulty = new();
