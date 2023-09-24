@@ -13,6 +13,7 @@ There are two buttons on the bottom - one is intended to shuffle all tiles again
 sorts the tiles and shows the solution to the user, again, resetting the game.
 In the strip menu the user can change the level if desired. Anytime the level is changed, the game resets the number of moves.
 
-![sliding_puzzle](https://github.com/fabioweck/Sliding-Puzzle/assets/115494238/66baf581-3dee-4b55-ae99-1bb2fd90b544)
+
+![sliding_puzzle](https://github.com/fabioweck/Sliding-Puzzle/assets/115494238/4d3ed2a5-44a8-4430-b4da-0096ad4d5902)
 
 I hope you enjoy!
