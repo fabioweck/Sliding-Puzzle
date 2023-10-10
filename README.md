@@ -14,6 +14,7 @@ sorts the tiles and shows the solution to the user, again, resetting the game.
 In the strip menu the user can change the level if desired. Anytime the level is changed, the game resets the number of moves.
 
 
-![sliding_puzzle](https://github.com/fabioweck/Sliding-Puzzle/assets/115494238/4d3ed2a5-44a8-4430-b4da-0096ad4d5902)
+![sliding_puzzle](https://github.com/fabioweck/Sliding-Puzzle/assets/115494238/d94f97ea-8ef1-46cc-af3f-8c5709652089)
+
 
 I hope you enjoy!
